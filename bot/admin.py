@@ -31,7 +31,6 @@ class WithdrawalAdmin(admin.ModelAdmin):
 admin.site.register(Withdrawal, WithdrawalAdmin)
 
 @receiver(post_save, sender = Enter)
-@receiver(post_save, sender = Users)
 def enter_balance(sender, instance, **kwargs):
 	status = instance.en_status
 	balance = instance.balance
