@@ -30,11 +30,11 @@ class WithdrawalAdmin(admin.ModelAdmin):
 	list_display = ('username', 'wd_id','wd_ps','wd_date','wd_sum','wd_status')
 admin.site.register(Withdrawal, WithdrawalAdmin)
 
-@receiver(post_save, sender = Enter)
+@receiver(post_save, sender=Enter)
 def enter_balance(sender, instance, **kwargs):
-	status = instance.en_status
-	balance = instance.balance
-	if status == 2 and instance.en_sum:
-		user = instance.username
-		user = balance + instance.en_sum
-		user.save()
+    status = instance.en_status
+    balance = instance.en_sum
+    if status == 2 and balance:
+        user = instance.username
+        user.balance += balance
+        user.save()
