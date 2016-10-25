@@ -49,7 +49,8 @@ class CommandView(View):
             import re
             text = re.search('[а-яА-Яa-zA-Z]+', data['text'].lower())
             if text:
-                return text.group()
+                text = text.group(0)
+                return text
         except KeyError:
             pass
         return None
