@@ -5,8 +5,8 @@ from datetime import datetime
 class Users(models.Model):
     username = models.CharField(max_length=50, verbose_name='Имя пользователя')
     id_user = models.IntegerField(verbose_name='ID-пользователя')
-    balance = models.FloatField(verbose_name='Баланс')
-    date_reg = models.DateTimeField(verbose_name='Дата регистрации')
+    balance = models.FloatField(verbose_name='Баланс', default=0.0)
+    date_reg = models.DateTimeField(verbose_name='Дата регистрации', auto_now_add=True)
 
     class Meta:
         verbose_name = 'Список пользователей'
