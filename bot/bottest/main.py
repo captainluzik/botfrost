@@ -13,7 +13,6 @@ from bot.models import Users
 """
 
 
-# @bot.message_handler(commands=["start"])
 def start(bot, message):
     markup = types.ReplyKeyboardMarkup()
     markup.row('Русский', 'English')
@@ -29,7 +28,6 @@ def start(bot, message):
 
 
 # # Выбор языков
-# @bot.message_handler(regexp="Русский")
 
 def russian(bot, message):
     markup = types.ReplyKeyboardHide(selective=False)
@@ -50,22 +48,19 @@ def russian(bot, message):
 #     bot.send_message(message.chat.id, "Some English text", reply_markup=keyboard)
 #
 #
-# # Конец
-#
-# @bot.callback_query_handler(func=lambda call: True)
-# def callback_inline(call):
-#     # Если сообщение из чата с ботом
-#     if call.message:
-#         if call.data == "russian":
-#             markup = types.ReplyKeyboardMarkup(row_width=2, one_time_keyboard=True)
-#             markup.row('Мой банк', 'Моя команда'),
-#             markup.row('Чат проекта', 'Источники дохода')
-#             markup.row('Настройки', 'Помощь')
-#             bot.send_message(call.message.chat.id, "Какая инструкция...бла бла бла", reply_markup=markup)
-#     # Если сообщение из инлайн-режима
-#     elif call.inline_message_id:
-#         if call.data == "test":
-#             bot.message_from_user(inline_message_id=call.inline_message_id, text="Инструкция")
+def callback_inline(bot, call):
+    # Если сообщение из чата с ботом
+    if call.message:
+        if call.data == "russian":
+            markup = types.ReplyKeyboardMarkup(row_width=2, one_time_keyboard=True)
+            markup.row('Мой банк', 'Моя команда'),
+            markup.row('Чат проекта', 'Источники дохода')
+            markup.row('Настройки', 'Помощь')
+            bot.send_message(call.message.chat.id, "Какая инструкция...бла бла бла", reply_markup=markup)
+    # Если сообщение из инлайн-режима
+    elif call.inline_message_id:
+        if call.data == "test":
+            bot.message_from_user(inline_message_id=call.inline_message_id, text="Инструкция")
 #
 #
 # # Блок меню "Мой банк"
@@ -184,5 +179,6 @@ def russian(bot, message):
 
 main_dict = {
     'start': start,
-    'русский': russian
+    'русский': russian,
+    'russian': callback_inline
 }

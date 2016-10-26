@@ -23,7 +23,7 @@ class CommandView(View):
         try:
             # Получение данных.
             data = self._get_data(request)
-            text = self._get_text(data)
+            text = self._get_command(data) or self._get_command_from_callback(data)
 
             # Если не None
             if text:
@@ -43,19 +43,28 @@ class CommandView(View):
         return super(CommandView, self).dispatch(request, *args, **kwargs)
 
     @staticmethod
-    def _get_text(data):
+    def _get_data(request):
+        # Отдаем Json.
+        return json.loads(request.body.decode('utf-8'))
+
+    @staticmethod
+    def _get_command(data):
         try:
             # Парсим текст из сообщения.
             import re
             text = re.search('[а-яА-Яa-zA-Z]+', data['text'].lower())
             if text:
                 text = text.group(0)
-                return text
         except KeyError:
-            pass
-        return None
+            text = None
+        else:
+            return text
 
     @staticmethod
-    def _get_data(request):
-        # Отдаем Json.
-        return json.loads(request.body.decode('utf-8'))
+    def _get_command_from_callback(data):
+        try:
+            text = data['data'].lower()
+        except KeyError:
+            text = None
+        else:
+            return text
