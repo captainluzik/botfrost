@@ -51,10 +51,7 @@ class CommandView(View):
     def _get_command(data):
         try:
             # Парсим текст из сообщения.
-            import re
-            text = re.search('[а-яА-Яa-zA-Z]+', data['text'].lower())
-            if text:
-                text = text.group(0)
+            text = data['text'].lower()
         except KeyError:
             text = None
         else:
