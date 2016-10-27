@@ -2,7 +2,6 @@ from telebot import types
 
 
 class CallBack:
-
     puts = [
         'put_10',
         'put_20',
