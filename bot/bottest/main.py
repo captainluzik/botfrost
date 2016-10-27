@@ -65,6 +65,12 @@ def bank(bot, message):
     bot.send_message(message.chat.id, "Информация о взносах из базы", reply_markup=markup)
 
 
+def choice_system(bot, message):
+    markup = types.ReplyKeyboardMarkup(row_width=1, selective=True)
+    markup.row('платежка_1', 'платежка_2')
+    bot.send_message(message.chat.id, "Выберите платежную систему", reply_markup=markup)
+
+
 # "Дерево" пополнения
 def enter(bot, message):
     keyboard = types.InlineKeyboardMarkup(row_width=3)
@@ -159,12 +165,13 @@ main_dict = {
     'start': start,
     'русский': russian,
     'банк': bank,
-    'пополнить': enter,
+    'пополнить': choice_system,
     'моя_команда': myteam,
     'помощь': help,
     'источники_дохода': profit,
     'настройки': settings,
     'баланс': balance,
+    'платежка_1': enter,
 
     'instruction': callback_inline,
     'put_10': callback_inline,
