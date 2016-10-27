@@ -46,8 +46,8 @@ def callback_inline(call):
     if call.message:
         if call.data == "test":
             markup = types.ReplyKeyboardMarkup(row_width=2, one_time_keyboard=True)
-            markup.row('Мой банк', 'Моя команда'),
-            markup.row('Чат проекта', 'Источники дохода')
+            markup.row('Мой банк', 'Моя_команда'),
+            markup.row('Чат проекта', 'Источники_дохода')
             markup.row('Настройки', 'Помощь')
             bot.send_message(call.message.chat.id, "Какая инструкция...бла бла бла", reply_markup=markup)
     # Если сообщение из инлайн-режима

@@ -34,7 +34,7 @@ def russian(bot, message):
     markup = types.ReplyKeyboardHide(selective=False)
     bot.send_message(message['chat']['id'], "Вы выбрали русский язык!", reply_markup=markup)
     keyboard = types.InlineKeyboardMarkup()
-    start_button = types.InlineKeyboardButton(text="Инструкция", callback_data="russian")
+    start_button = types.InlineKeyboardButton(text="Инструкция", callback_data="instruction")
     keyboard.add(start_button)
     bot.send_message(message['chat']['id'], "Здесь напишем приветственный текст", reply_markup=keyboard)
 
@@ -71,8 +71,11 @@ def enter(bot, message):
     btn1 = types.InlineKeyboardButton(text="10$", callback_data="put_10")
     btn2 = types.InlineKeyboardButton(text="20$", callback_data="put_20")
     btn3 = types.InlineKeyboardButton(text="50$", callback_data="put_50")
-    btn4 = types.InlineKeyboardButton(text="Ввести в ручную", callback_data="put_custom")
-    keyboard.add(btn1, btn2, btn3, btn4)
+    btn4 = types.InlineKeyboardButton(text="100$", callback_data="put_100")
+    btn5 = types.InlineKeyboardButton(text="200$", callback_data="put_200")
+    btn6 = types.InlineKeyboardButton(text="500$", callback_data="put_500")
+    btn7 = types.InlineKeyboardButton(text="Ввести в ручную", callback_data="put_custom")
+    keyboard.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
     bot.send_message(message.chat.id, "Выберите сумму пополнения", reply_markup=keyboard)
 
 
@@ -100,8 +103,8 @@ def history(bot, message):
 
 def down(bot, message):
     markup = types.ReplyKeyboardMarkup(row_width=2, selective=True)
-    markup.row('Мой банк', 'Моя команда'),
-    markup.row('Чат проекта', 'Источники дохода')
+    markup.row('Банк', 'Моя_команда'),
+    markup.row('Чат', 'Источники_дохода')
     markup.row('Настройки', 'Помощь')
     bot.send_message(message.chat.id, "Открываю меню...", reply_markup=markup)
 
@@ -155,9 +158,20 @@ def myteam(bot, message):
 main_dict = {
     'start': start,
     'русский': russian,
-    'russsian': callback_inline,
-    'мой банк': bank,
+    'банк': bank,
     'пополнить': enter,
-    'put_10': callback_inline,
+    'моя_команда': myteam,
+    'помощь': help,
+    'источники_дохода': profit,
+    'настройки': settings,
+    'баланс': balance,
 
+    'instruction': callback_inline,
+    'put_10': callback_inline,
+    'put_20': callback_inline,
+    'put_50': callback_inline,
+    'put_100': callback_inline,
+    'put_200': callback_inline,
+    'put_500': callback_inline,
+    'put_custom': callback_inline,
 }
