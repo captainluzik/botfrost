@@ -2,6 +2,17 @@ from telebot import types
 
 
 class CallBack:
+
+    puts = [
+        'put_10',
+        'put_20',
+        'put_50',
+        'put_100',
+        'put_200',
+        'put_500',
+        'put_custom'
+    ]
+
     def __init__(self, bot, callback):
         self.bot = bot
         self.callback = callback
@@ -16,11 +27,13 @@ class CallBack:
         return method()
 
     def _get_method(self, method):
+        if method in self.puts:
+            return self.put_money
         return getattr(self, method, None)
 
-    def russian(self):
+    def instruction(self):
         markup = types.ReplyKeyboardMarkup(row_width=2, one_time_keyboard=True)
-        markup.row('Банк', 'Моя команда'),
+        markup.row('Банк', 'Моя_команда'),
         markup.row('Чат', 'Источники_дохода')
         markup.row('Настройки', 'Помощь')
         self.bot.send_message(
@@ -30,7 +43,7 @@ class CallBack:
         )
         return True
 
-    def put_10(self):
+    def put_money(self):
         money = self.get_money()
         if money:
             return self.bulling(money)
