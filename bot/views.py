@@ -20,21 +20,21 @@ class CommandView(View):
 
         # Эта обработка неизвестной ошибки, иногда бывает так, что кто-то присылает что-то и все падает,
         # потом вебхук забивается
-        try:
-            # Получение данных.
-            data = self._get_data(request)
-            text = self._get_command(data) or self._get_command_from_callback(data)
+        # try:
+        # Получение данных.
+        data = self._get_data(request)
+        text = self._get_command(data) or self._get_command_from_callback(data)
 
-            # Если не None
-            if text:
-                # Пытаемся получить метод из модуля main, иначе None
-                main_func = main.main_dict.get(text, None)
-                # Если функция есть - вызываем ее с параметрами: бот и сообщение
-                if main_func:
-                    main_func(bot, data)
+        # Если не None
+        if text:
+            # Пытаемся получить метод из модуля main, иначе None
+            main_func = main.main_dict.get(text, None)
+            # Если функция есть - вызываем ее с параметрами: бот и сообщение
+            if main_func:
+                main_func(bot, data)
         # Если прислали что-то не то - просто пропускаем это сообщение и говорим телеграму, что все норм
-        except:
-            pass
+        # except:
+        #     pass
         # Говорим телеграмму, что все хорошо
         return HttpResponse(json.dumps({'status': 200}))
 
