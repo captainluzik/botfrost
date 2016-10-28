@@ -74,21 +74,29 @@ def choice_system(bot, message):
 # "Дерево" пополнения
 def enter(bot, message):
     keyboard = types.InlineKeyboardMarkup(row_width=3)
-    btn1 = types.InlineKeyboardButton(text="10$", callback_data="put_10")
-    btn2 = types.InlineKeyboardButton(text="20$", callback_data="put_20")
-    btn3 = types.InlineKeyboardButton(text="50$", callback_data="put_50")
-    btn4 = types.InlineKeyboardButton(text="100$", callback_data="put_100")
-    btn5 = types.InlineKeyboardButton(text="200$", callback_data="put_200")
-    btn6 = types.InlineKeyboardButton(text="500$", callback_data="put_500")
-    btn7 = types.InlineKeyboardButton(text="Ввести в ручную", callback_data="put_custom")
-    keyboard.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
+    # btn1 = types.InlineKeyboardButton(text="10$", callback_data="put_10")
+    # btn2 = types.InlineKeyboardButton(text="20$", callback_data="put_20")
+    # btn3 = types.InlineKeyboardButton(text="50$", callback_data="put_50")
+    # btn4 = types.InlineKeyboardButton(text="100$", callback_data="put_100")
+    # btn5 = types.InlineKeyboardButton(text="200$", callback_data="put_200")
+    # btn6 = types.InlineKeyboardButton(text="500$", callback_data="put_500")
+    # btn7 = types.InlineKeyboardButton(text="Ввести в ручную", callback_data="put_custom")
+    # keyboard.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
     bot.send_message(message.chat.id, "Выберите сумму пополнения", reply_markup=keyboard)
 
 
 # Конец "Дерева"
 def withdrawal(bot, message):
-    # тут надо будет прописать if else с положительный и\или нулевым балансом, пока заглушка
-    bot.send_message(message.chat.id, "Для вывода требуется иметь хотя бы один действующий взнос в системе.")
+    keyboard = types.InlineKeyboardMarkup(row_width=3)
+    btn1 = types.InlineKeyboardButton(text="10$", callback_data="get_10")
+    btn2 = types.InlineKeyboardButton(text="20$", callback_data="get_20")
+    btn3 = types.InlineKeyboardButton(text="50$", callback_data="get_50")
+    btn4 = types.InlineKeyboardButton(text="100$", callback_data="get_100")
+    btn5 = types.InlineKeyboardButton(text="200$", callback_data="get_200")
+    btn6 = types.InlineKeyboardButton(text="500$", callback_data="get_500")
+    # btn7 = types.InlineKeyboardButton(text="Ввести в ручную", callback_data="put_custom")
+    keyboard.add(btn1, btn2, btn3, btn4, btn5, btn6)
+    bot.send_message(message.chat.id, "Выберите сумму вывода", reply_markup=keyboard)
 
 
 def balance(bot, message):
@@ -172,13 +180,13 @@ main_dict = {
     'настройки': settings,
     'баланс': balance,
     'платежка_1': enter,
+    'вывести': withdrawal,
 
     'instruction': callback_inline,
-    'put_10': callback_inline,
-    'put_20': callback_inline,
-    'put_50': callback_inline,
-    'put_100': callback_inline,
-    'put_200': callback_inline,
-    'put_500': callback_inline,
-    'put_custom': callback_inline,
+    'get_10': callback_inline,
+    'get_20': callback_inline,
+    'get_50': callback_inline,
+    'get_100': callback_inline,
+    'get_200': callback_inline,
+    'get_500': callback_inline,
 }
